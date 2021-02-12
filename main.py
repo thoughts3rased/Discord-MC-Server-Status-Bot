@@ -2,9 +2,11 @@ import discord
 from discord.ext import tasks, commands
 import mcstatus
 from mcstatus import MinecraftServer
-TOKEN = 'Nzk1MDg5MjMzNDcxMzQwNTc1.X_ESjQ.cMokQjOzO8k17gwKdLRsRiUe9YQ'
+TOKEN = ''
 PREFIX = '!'
 INTENTS = discord.Intents.default()
+IP = ""
+PORT = 25565
 bot = commands.Bot(command_prefix=PREFIX, intents=INTENTS)
 class Loops(commands.Cog):
     def __init__(self, bot):
@@ -15,7 +17,7 @@ class Loops(commands.Cog):
     @tasks.loop(minutes=0.25)
     async def checkServer(self):
         try:
-            server = MinecraftServer("164.132.149.15", 25565)
+            server = MinecraftServer(IP, PORT)
             status = server.status()
             if status.players.online == 0:
                 await bot.change_presence(status = discord.Status.idle, activity = discord.Game(name = "There are no players online."))
